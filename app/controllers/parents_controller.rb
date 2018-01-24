@@ -1,7 +1,7 @@
 class ParentsController < ApplicationController
   get '/parents/signup' do
     if logged_in?
-      redirect "/#{session[:type]}/#{current_user.id}"
+      redirect "/#{session[:user_type]}/#{current_user.id}"
     else
       erb :'parents/signup'
     end
@@ -9,7 +9,7 @@ class ParentsController < ApplicationController
 
   post '/parents' do
     if logged_in?
-      redirect "/#{session[:type]}/#{current_user.id}"
+      redirect "/#{session[:user_type]}/#{current_user.id}"
     end
     if Parent.find_by(username: params[:parent][:username])
       @message = "Username already in use. Please select a different one."
@@ -33,7 +33,7 @@ class ParentsController < ApplicationController
     if logged_in?
       erb :'parents/show'
     else
-      erb :login
+      redirect '/login'
     end
   end
 

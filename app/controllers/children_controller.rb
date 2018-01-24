@@ -10,7 +10,6 @@ class ChildrenController < ApplicationController
 
   post '/children' do
     if logged_in? && parent?
-      binding.pry
       if Child.find_by(username: params[:child][:username])
         @message = "Username already in use. Please select a different one."
         erb :'children/signup'
@@ -30,7 +29,7 @@ class ChildrenController < ApplicationController
     end
   end
 
-  get '/chidren/:id' do
+  get '/children/:id' do
     if logged_in?
       erb :'children/show'
     else

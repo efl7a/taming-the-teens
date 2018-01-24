@@ -6,7 +6,7 @@ class ApplicationController < Sinatra::Base
 
   get '/' do
     if logged_in?
-      redirect "/#{session[:type]}/#{current_user.id}"
+      redirect "/#{session[:user_type]}/#{current_user.id}"
     else
       erb :index
     end
@@ -14,15 +14,32 @@ class ApplicationController < Sinatra::Base
 
   get '/login' do
     if logged_in?
-      redirect "/#{session[:type]}/#{current_user.id}"
+      redirect "/#{session[:user_type]}/#{current_user.id}"
     else
       erb :login
     end
   end
 
+  post '/login' do
+    session[:user_type] = params[:user_type]
+    if parent?
+      user = Parent.find_by(username: params[:username])
+    else
+      user = Child.find_by(username: params[:username])
+    end
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      binding.pry
+      redirect "/#{session[:user_type]}/#{current_user.id}"
+    else
+      session.clear
+      redirect '/login'
+    end
+  end
+
   get '/signup' do
     if logged_in?
-      redirect "/#{session[:type]}/#{current_user.id}"
+      redirect "/#{session[:user_type]}/#{current_user.id}"
     else
       redirect '/parents/signup'
     end
@@ -47,7 +64,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def parent?
-      session[:type] == 'parents'
+      session[:user_type] == 'parents'
     end
 
   end

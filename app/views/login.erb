@@ -1,1 +1,11 @@
-login here
+<h1>Login</h1>
+<form action="/login" method="POST">
+<input type="checkbox" name="user_type" value="parents" />Parent
+<input type="checkbox" name="user_type" value="children" />Child
+<br><br>
+<label>Username: <input type="text" name="username"/></label>
+<br><br>
+<label>Password: <input type="password" name="password" /></label>
+<br><br>
+<input type="submit" value="Log In" />
+</form>
