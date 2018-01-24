@@ -20,4 +20,28 @@ class ChoresController < ApplicationController
       redirect '/'
     end
   end
+
+  get '/chores/:id/edit' do
+    if logged_in? && parent?
+      @chore = Chore.find(params[:id])
+      erb :'chores/edit'
+    else
+      redirect '/'
+    end
+  end
+
+  patch '/chores' do
+
+  end
+
+  delete '/chores/:id/delete' do
+    if logged_in? && parent?
+      chore = Chore.find(params[:id])
+      if chore.child.family.id == current_user.family.id
+        chore.destroy
+      end
+    end
+      redirect '/'
+  end
+
 end

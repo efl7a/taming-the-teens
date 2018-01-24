@@ -4,11 +4,22 @@
 <p>This chore is <%="not" if @chore.completed == false %> complete.</p>
 
 <% if @user == "parents" %>
-<form action="/signup" method="GET">
-  <input type="submit" value="Signup"/>
+<h3>What would you like to do, <%= @chore.parent.username.capitalize %>?</h3>
+<form action="/chores/<%= @chore.id %>/edit" method="GET">
+  <input type="submit" value="Edit Chore"/>
 </form>
-<p>or </p>
-<form action="/signup" method="GET">
-  <input type="submit" value="Signup"/>
+<p>or</p>
+<form action="/chores/<%= @chore.id %>/delete" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Chore"/>
 </form>
+<% end %>
+
+<% if @user == "children" %>
+<h3>Would you like to mark as complete?</h3>
+<form action="/chores/<%= @chore.id %>" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="patch">
+  <input type="submit" value="Chore Completed"/>
+</form>
+
 <% end %>
