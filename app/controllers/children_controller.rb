@@ -31,6 +31,7 @@ class ChildrenController < ApplicationController
 
   get '/children/:id' do
     if logged_in?
+      @child = Child.find(params[:id])
       erb :'children/show'
     else
       redirect '/'

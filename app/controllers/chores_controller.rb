@@ -35,7 +35,8 @@ class ChoresController < ApplicationController
       chore = Chore.find(params[:id])
       if parent?
       else
-        chore.completed = true        
+        chore.completed = true
+        chore.save
       end
     end
     redirect '/'

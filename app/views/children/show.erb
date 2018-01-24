@@ -1,1 +1,18 @@
-Coming Soon!
+<h1>The <%= @child.family.name.capitalize %> Family</h1>
+<h2>Welcome, <%= @child.username.capitalize %>!</h2>
+<h3>Here is a look at your To Do List:</h3>
+
+ <table>
+   <tr>
+     <th>Chore</th>
+     <th>Completed</th>
+   </tr>
+   <% @child.chores.each do |chore| %>
+      <tr>
+        <td><a href="/chores/<%= chore.id %>"><%= chore.name %></a></td>
+        <td><%= chore.completed ? "Completed":"Not Completed" %></li>
+      </tr>
+    <% end %>
+ </table>
+
+<br><br>
