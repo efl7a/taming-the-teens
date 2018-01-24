@@ -30,8 +30,15 @@ class ChoresController < ApplicationController
     end
   end
 
-  patch '/chores' do
-
+  patch '/chores/:id' do
+    if logged_in?
+      chore = Chore.find(params[:id])
+      if parent?
+      else
+        chore.completed = true        
+      end
+    end
+    redirect '/'
   end
 
   delete '/chores/:id/delete' do
