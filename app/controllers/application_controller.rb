@@ -4,15 +4,27 @@ class ApplicationController < Sinatra::Base
   set :views, Proc.new { File.join(root, "../views/") }
 
   get '/' do
-    erb :index
+    if logged_in?
+      redirect "/#{session[:type]}/#{current_user.id}"
+    else
+      erb :index
+    end
   end
 
   get '/login' do
-    erb :login
+    if logged_in?
+      redirect "/#{session[:type]}/#{current_user.id}"
+    else
+      erb :login
+    end
   end
 
   get '/signup' do
-    redirect '/parents/signup'
+    if logged_in?
+      redirect "/#{session[:type]}/#{current_user.id}"
+    else
+      redirect '/parents/signup'
+    end
   end
 
   get '/logout' do
@@ -26,7 +38,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      if session[:type] == 'parent'
+      if session[:type] == 'parents'
         Parent.find(session[:user_id])
       else
         Child.find(session[:user_id])

@@ -1,9 +1,16 @@
 class ParentsController < ApplicationController
   get '/parents/signup' do
-    erb :'parents/signup'
+    if logged_in?
+      redirect "/#{session[:type]}/#{current_user.id}"
+    else
+      erb :'parents/signup'
+    end
   end
 
   post '/parents' do
+    if logged_in?
+      redirect "/#{session[:type]}/#{current_user.id}"
+    end
     if Parent.find_by(username: params[:parent][:username])
       @message = "Username already in use. Please select a different one."
       erb :'parents/signup'
@@ -12,12 +19,20 @@ class ParentsController < ApplicationController
       parent.family = Family.create(params[:family])
       if parent.save
         session[:user_id] = parent.id
-        session[:type] = "parent"
+        session[:type] = "parents"
         redirect '/children/signup'
       else
         @message = "Looks like something went wrong. Please fill in all boxes."
         erb :'parents/signup'
       end
+    end
+  end
+
+  get '/parents/:id' do
+    if logged_in?
+      erb :'parents/show'
+    else
+      erb :login
     end
   end
 
