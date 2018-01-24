@@ -1,0 +1,14 @@
+<h1><%= @chore.child.username.capitalize %>'s chore is to <%= @chore.name %>.</h1>
+<p><%= @chore.parent.username.capitalize %> estimated it would take <%= @chore.child.username.capitalize %>
+  <%= @chore.time_to_complete %> minutes.</p>
+<p>This chore is <%="not" if @chore.completed == false %> complete.</p>
+
+<% if @user == "parents" %>
+<form action="/signup" method="GET">
+  <input type="submit" value="Signup"/>
+</form>
+<p>or </p>
+<form action="/signup" method="GET">
+  <input type="submit" value="Signup"/>
+</form>
+<% end %>

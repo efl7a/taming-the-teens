@@ -29,7 +29,6 @@ class ApplicationController < Sinatra::Base
     end
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      binding.pry
       redirect "/#{session[:user_type]}/#{current_user.id}"
     else
       session.clear

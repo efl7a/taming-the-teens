@@ -8,4 +8,6 @@ require './config/environment'
 use Rack::MethodOverride
 use ChildrenController
 use ParentsController
+use ChoresController
+use FamiliesController
 run ApplicationController

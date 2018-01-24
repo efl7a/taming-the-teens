@@ -1,1 +1,21 @@
-Coming Soon!
+<h1>The <%= @parent.family.name.capitalize %> Family</h1>
+<h2>Welcome, <%= @parent.username.capitalize %>!</h2>
+<h3>Here is a look at your family:</h3>
+<% @parent.children.each do |child| %>
+ <h4><%= child.username.capitalize %>'s Chores</h4>
+ <ul>
+   <% child.chores.each do |chore| %>
+    <li><a href="/chores/<%= chore.id %>"><%= chore.name %></a>: <%= chore.completed ? "Completed":"Needs to Do" %></li>
+    <% end %>
+ </ul>
+<% end %>
+<br><br>
+
+<h3>What would you like to do?</h3>
+<form action="/chores/new" method="GET">
+  <input type="submit" value="Add a Chore" />
+</form>
+<br>
+<form action="/families/edit" method="GET">
+  <input type="submit" value="Update Family" />
+</form>
