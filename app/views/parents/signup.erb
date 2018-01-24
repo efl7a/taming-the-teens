@@ -1,0 +1,17 @@
+<h1>Sign up a Parent Here:</h1>
+<form action="/parents" method="POST">
+  <% if @message %>
+  <h3>Please select a unique username.</h3>
+  <% end %>
+<label>Username: <input type="text" name="parent[username]" /></label>
+<br><br>
+<label>Email: <input type="text" name="parent[email]" /></label>
+<br><br>
+<label>Password: <input type="text" name="parent[password]" /></label>
+<br><br>
+<label>Family Name: <input type="text" name="family[name]" /></label>
+<br><br>
+<h2>You will signup your children in the next step.</h2>
+<br><br>
+<input type="submit" value="Sign Up" />
+</form>

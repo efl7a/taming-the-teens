@@ -1,12 +1,12 @@
-fams = {
-  1 => {name: "jones"},
-  2 => {name: "cash"},
-  3 => {name: "priest"},
-  4 => {name: "mister"},
-  5 => {name: "ost"}
-}
+fams = [
+  {name: "jones"},
+  {name: "cash"},
+  {name: "priest"},
+  {name: "mister"},
+  {name: "ost"}
+]
 
-fams.each do |number, hash|
+fams.each do |hash|
   Family.create(hash)
 end
 
