@@ -17,6 +17,7 @@ class ParentsController < ApplicationController
     else
       parent = Parent.new(params[:parent])
       parent.family = Family.create(params[:family])
+      binding.pry
       if parent.save
         session[:user_id] = parent.id
         session[:type] = "parents"

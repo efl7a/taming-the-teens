@@ -1,5 +1,6 @@
 class ApplicationController < Sinatra::Base
   register Sinatra::ActiveRecordExtension
+  enable :sessions
   set :session_secret, "my_application_secret"
   set :views, Proc.new { File.join(root, "../views/") }
 
@@ -38,11 +39,15 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      if session[:type] == 'parents'
+      if parent?
         Parent.find(session[:user_id])
       else
         Child.find(session[:user_id])
       end
+    end
+
+    def parent?
+      session[:type] == 'parents'
     end
 
   end

@@ -1,1 +1,13 @@
-signup kids
+<h1>Sign up a Child Here:</h1>
+<form action="/children" method="POST">
+  <% if @message %>
+  <h3><%= @message %></h3>
+  <% end %>
+<label>Username: <input type="text" name="child[username]" /></label>
+<br><br>
+<label>Email: <input type="text" name="child[email]" /></label>
+<br><br>
+<label>Password: <input type="text" name="child[password]" /></label>
+<br><br>
+<input type="submit" value="Sign Up" />
+</form>
