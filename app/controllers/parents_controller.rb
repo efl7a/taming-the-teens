@@ -30,7 +30,8 @@ class ParentsController < ApplicationController
   end
 
   get '/parents/:id' do
-    if logged_in?
+    if logged_in? && parent?
+      @parent = current_user
       erb :'parents/show'
     else
       redirect '/login'
