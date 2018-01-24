@@ -14,4 +14,24 @@ class ApplicationController < Sinatra::Base
   get '/signup' do
     redirect '/parents/signup'
   end
+
+  get '/logout' do
+    session.clear
+    redirect '/'
+  end
+
+  helpers do
+    def logged_in?
+      !!session[:user_id]
+    end
+
+    def current_user
+      if session[:type] == 'parent'
+        Parent.find(session[:user_id])
+      else
+        Child.find(session[:user_id])
+      end
+    end
+
+  end
 end

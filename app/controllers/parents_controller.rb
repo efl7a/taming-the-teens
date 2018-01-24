@@ -11,7 +11,9 @@ class ParentsController < ApplicationController
       parent = Parent.new(params[:parent])
       parent.family = Family.create(params[:family])
       if parent.save
-        redirect '/chidren/signup'
+        session[:user_id] = parent.id
+        session[:type] = "parent"
+        redirect '/children/signup'
       else
         @message = "Looks like something went wrong. Please fill in all boxes."
         erb :'parents/signup'
