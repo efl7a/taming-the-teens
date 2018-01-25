@@ -3,8 +3,22 @@ class ChoresController < ApplicationController
     redirect '/chores/new'
   end
 
+  post '/chores' do
+    if logged_in? && parent?
+      chore = Chore.new(params[:chore])
+      chore.parent = current_user
+      chore.completed = false
+      if chore.save
+        redirect "/chores/#{chore.id}"
+      else
+        redirect '/'
+      end
+    end
+  end
+
   get '/chores/new' do
-    if logged_in?
+    if logged_in? && parent?
+      @parent = current_user
       erb :'chores/new'
     else
       redirect '/'

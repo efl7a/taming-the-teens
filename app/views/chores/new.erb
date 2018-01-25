@@ -1,1 +1,15 @@
-Coming Soon!
+<h2>Welcome, <%= @parent.username.capitalize %>!</h2>
+<form action="/chores" method="POST">
+  <label>Chore Name: <input type="text" name="chore[name]"/></label>
+  <br><br>
+  <label>Time needed to complete (in minutes): <input type="text" name="chore[time_to_complete]"/></label>
+  <br><br>
+  <label>Child Responsible:</label>
+  <br><br>
+  <% @parent.children.each do |child| %>
+      <input type="checkbox" name="chore[child_id]" value="<%= child.id %>" /><%= child.username.capitalize %>
+    <br>
+    <% end %>
+    <br><br>
+  <input type="submit" value="Add Chore" />
+</form>
