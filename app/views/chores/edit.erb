@@ -1,1 +1,23 @@
-Coming Soon!
+<h1><%= @chore.name.capitalize %></h1>
+<form action="/chores/<%= @chore.id %>" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="patch">
+
+<select>
+  <% @chore.child.family.parents.each do |parent| %>
+  <option selected="<%='selected if chore.parent_id == parent.id'%>" name="chore[parent_id]" value="<%= parent.id %>"><%= parent.username.capitalize %></option>
+  <%end%>
+</select>
+  estimated it would take <%= @chore.child.username.capitalize %>
+  <input type="text" name="chore[time_to_complete]" value="<%= @chore.time_to_complete %>"/>
+   minutes.
+<p>This chore is <input type="radio" name="chore[completed]" value="false" <%='checked' if @chore.completed == false %>/> not completed
+or <input type="radio" name="chore[completed]" value="true" <%='checked' if @chore.completed == true %>/> completed. </p>
+
+<br><br>
+  <input type="submit" value="Edit Chore"/>
+</form>
+<p>or</p>
+<form action="/chores/<%= @chore.id %>/delete" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Chore"/>
+</form>

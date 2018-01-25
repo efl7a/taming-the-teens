@@ -45,15 +45,22 @@ class ChoresController < ApplicationController
   end
 
   patch '/chores/:id' do
-    if logged_in?
-      chore = Chore.find(params[:id])
-      if parent?
-      else
-        chore.completed = true
+    chore = Chore.find(params[:id])
+    if logged_in? && parent?
+      if chore.child.family.id == current_user.family.id
+        binding.pry
+        chore.parent_id = params[:id] #Do not understand why this is not params[:chore][:parent_id]
+        chore.time_to_complete = params[:chore][:time_to_complete]
+        chore.completed = params[:chore][:completed]
         chore.save
       end
+    elsif logged_in && chore.child == current_user
+        chore.completed = true
+        chore.save
+    else
+      redirect '/'
     end
-    redirect '/'
+    redirect "/chores/#{chore.id}"
   end
 
   delete '/chores/:id/delete' do
