@@ -48,8 +48,8 @@ class ChoresController < ApplicationController
     chore = Chore.find(params[:id])
     if logged_in? && parent?
       if chore.child.family.id == current_user.family.id
-        binding.pry
-        chore.parent_id = params[:id] #Do not understand why this is not params[:chore][:parent_id]
+        chore.name = params[:chore][:name]
+        chore.parent_id = params[:chore][:parent_id]
         chore.time_to_complete = params[:chore][:time_to_complete]
         chore.completed = params[:chore][:completed]
         chore.save
