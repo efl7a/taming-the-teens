@@ -54,7 +54,7 @@ class ChoresController < ApplicationController
         chore.completed = params[:chore][:completed]
         chore.save
       end
-    elsif logged_in && chore.child == current_user
+    elsif logged_in? && chore.child == current_user
         chore.completed = true
         chore.save
     else
