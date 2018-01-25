@@ -29,6 +29,13 @@ class ParentsController < ApplicationController
     end
   end
 
+  get '/parents/new' do
+    if logged_in? && parent?
+      @user = current_user
+      erb :'parents/new'
+    end
+  end
+
   get '/parents/:id' do
     if logged_in? && parent?
       @parent = current_user

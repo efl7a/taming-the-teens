@@ -4,10 +4,12 @@ class FamiliesController < ApplicationController
   end
 
   get '/families/edit' do
-    if logged_in?
+    if logged_in? && parent?
+      @parent = current_user
       erb :'families/show'
     else
       redirect '/'
     end
   end
+
 end
